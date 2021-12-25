@@ -2,6 +2,9 @@
   <button
     @click="onClickSelectButton"
   >選択</button>
+  <v-btn color="primary" class="font-weight-bold" elevation="0">
+    画面1
+  </v-btn>
   <div class="capture"></div>
 </template>
 
