@@ -10,6 +10,7 @@
   <video
     :srcObject.prop="videoSrc"
     autoplay
+    width="400"
   />
 </template>
 
@@ -26,19 +27,6 @@ export default defineComponent({
     const videoSrc = ref<MediaStream>(new MediaStream());
 
     const {getDisplayMedia} = useMediaDevice();
-    console.log(getDisplayMedia);
-
-    // screen capture api
-    async function startCapture(displayMediaOptions) {
-      let captureStream = null;
-
-      try {
-        captureStream = await getDisplayMedia();
-      } catch (err) {
-        console.error('Error: ' + err);
-      }
-      return captureStream;
-    }
 
     const onClickSelectButton = async () => {
       const mediaStream = await getDisplayMedia();
