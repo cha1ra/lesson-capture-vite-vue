@@ -2,22 +2,23 @@
 // http://dotnsf.blog.jp/archives/1077258778.html
 
 const useMediaDevice = () => {
-  const mediaStreamConstraints = { video: true }
+  const cn = {video: true}; // constraints
 
-  const getDisplayMedia = async () => {
+  const getDisplayMedia = async (): Promise<MediaStream> => {
     try {
-      // @ts-ignore
-      const captureStream:Promise<MediaStream> = await navigator.mediaDevices.getDisplayMedia(mediaStreamConstraints)
-      return captureStream
+      const {mediaDevices} = navigator;
+      const stream:MediaStream = await mediaDevices.getDisplayMedia(cn);
+      console.log(stream);
+      return stream;
     } catch (e) {
-      console.error('Error: ' + e)
-      return new MediaStream()
+      console.error('Error: ' + e);
+      return new MediaStream();
     }
-  }
+  };
 
   return {
-    getDisplayMedia
-  }
-}
+    getDisplayMedia,
+  };
+};
 
-export default useMediaDevice
+export default useMediaDevice;
