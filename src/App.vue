@@ -28,13 +28,13 @@ onMounted(() => {
   <v-app>
     <v-main>
       <v-container>
-        どーしよっかな {{ mediaStream }}aa
         <ScreenCapture
           v-model:mediaStream="mediaStream"
         />
         ---
+        <!-- TODO: 後で :srcObject.prop="mediaStream" に置き換え -->
         <video
-          :srcObject.prop="mediaStream"
+          src="mock/sample1.mp4"
           autoplay
           width="400"
         />
