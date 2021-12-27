@@ -4,6 +4,7 @@ import {
   onMounted, ref,
 } from 'vue';
 import ScreenCapture from './components/ScreenCapture.vue';
+import StramingScreen from './components/StreamingScreen.vue';
 
 
 const mediaStream = ref(new MediaStream());
@@ -28,17 +29,10 @@ onMounted(() => {
   <v-app>
     <v-main>
       <v-container>
+        <StramingScreen />
         <ScreenCapture
           v-model:mediaStream="mediaStream"
         />
-        ---
-        <!-- TODO: 後で :srcObject.prop="mediaStream" に置き換え -->
-        <video
-          src="mock/sample1.mp4"
-          autoplay
-          width="400"
-        />
-        ---
       </v-container>
     </v-main>
   </v-app>
