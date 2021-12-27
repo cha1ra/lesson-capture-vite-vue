@@ -10,17 +10,17 @@ import StramingScreen from './components/StreamingScreen.vue';
 const mediaStream = ref(new MediaStream());
 
 
-console.log(mediaStream);
-console.log('test');
-console.log(new MediaStream());
-console.log(mediaStream);
-console.log(mediaStream.value);
-console.log('test-end');
-onMounted(() => {
-  mediaStream.value = new MediaStream();
-  console.log('onMounted');
-  console.log(mediaStream);
-});
+// console.log(mediaStream);
+// console.log('test');
+// console.log(new MediaStream());
+// console.log(mediaStream);
+// console.log(mediaStream.value);
+// console.log('test-end');
+// onMounted(() => {
+//   mediaStream.value = new MediaStream();
+//   console.log('onMounted');
+//   console.log(mediaStream);
+// });
 
 
 </script>
