@@ -39,19 +39,19 @@ const mediaStream3 = ref(new MediaStream());
             <ScreenCapture
               v-model:mediaStream="mediaStream1"
               class="mb-1"
-              name="Screen 1"
+              name="コーディング画面"
               preview
             />
             <ScreenCapture
               v-model:mediaStream="mediaStream2"
               class="mb-1"
-              name="Screen 2"
+              name="結果表示"
               preview
             />
             <ScreenCapture
               v-model:mediaStream="mediaStream3"
               class="mb-1"
-              name="Screen 3"
+              name="授業資料"
               preview
             />
           </v-col>
