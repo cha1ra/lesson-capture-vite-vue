@@ -2,28 +2,88 @@
 import {
   ref,
   reactive,
-  onMounted,
+  onMounted, computed, defineProps,
 } from 'vue';
 
 
-const canvas = ref<HTMLCanvasElement>();
-const video = ref<HTMLVideoElement>();
+const props = defineProps<{
+  mediaStream1: MediaStream
+}>();
 
-const canvasSize = reactive({
-  width: 640,
-  height: 480,
+
+const canvas = ref<HTMLCanvasElement>();
+const video1 = ref<HTMLVideoElement>();
+const video2 = ref<HTMLVideoElement>();
+
+const cvSize = reactive({
+  width: 1280,
+  height: 720,
 });
 
+const p = ref<number>(8); // screen内部のpadding
+
+const subCvConfig = reactive({
+  mag: 1.5,
+  position: 'bottom-right',
+});
+
+const subCanvasPosition = computed(() => {
+  if (video2.value === undefined) {
+    return {
+      x: 0,
+      y: 0,
+    };
+  }
+  switch (subCvConfig.position) {
+    case 'top-left':
+      return {
+        x: p.value,
+        y: p.value,
+      };
+    case 'top-right':
+      return {
+        x: cvSize.width - p.value - subCvConfig.mag *cvSize.width,
+        y: p.value,
+      };
+    case 'bottom-left':
+      return {
+        x: p.value,
+        y: cvSize.height - p.value - subCvConfig.mag * cvSize.height,
+      };
+    case 'bottom-right':
+      return {
+        x: cvSize.width - p.value - (cvSize.width / subCvConfig.mag),
+        y: cvSize.height - p.value - (cvSize.height / subCvConfig.mag),
+      };
+    default:
+      return {
+        x: p.value,
+        y: p.value,
+      };
+  }
+});
+
+
 const drawCanvas = () => {
-  if (canvas.value === undefined || video.value === undefined) return;
+  if (
+    canvas.value === undefined ||
+    video1.value === undefined ||
+    video2.value === undefined
+  ) return;
   const context:CanvasRenderingContext2D|null = canvas.value.getContext('2d');
   if (context === null) return;
   context.fillStyle = '#F3F5FB';
-  context.fillRect(0, 0, canvasSize.width, canvasSize.height);
+  context.fillRect(0, 0, cvSize.width, cvSize.height);
   context.drawImage(
-      video.value,
+      video1.value,
       0, 0,
-      canvasSize.width, canvasSize.height,
+      cvSize.width, cvSize.height,
+  );
+  context.drawImage(
+      video2.value,
+      subCanvasPosition.value.x, subCanvasPosition.value.y,
+      cvSize.width / subCvConfig.mag,
+      cvSize.height / subCvConfig.mag,
   );
   requestAnimationFrame(drawCanvas);
 };
@@ -50,24 +110,29 @@ onMounted(() => {
     <p>canvas</p>
     <canvas
       ref="canvas"
-      :width="canvasSize.width"
-      :height="canvasSize.height"
+      :width="cvSize.width"
+      :height="cvSize.height"
     />
   </div>
-  <div>
-    <p>video</p>
+  <div style="opacity: 0">
     <video
-      ref="video"
-      src="mock/sample2.mp4"
+      ref="video1"
+      :srcObject.prop="mediaStream1"
       autoplay
       controls
-      width="400"
+      width="200"
+    />
+    <video
+      ref="video2"
+      src="mock/sample2.mp4"
+      autoplay
+      width="200"
     />
   </div>
-
-<!--  <video-->
-<!--    src="mock/sample2.mp4"-->
-<!--    autoplay-->
-<!--    width="400"-->
-<!--  />-->
+  <p>ここ</p>
+  <video
+    autoplay
+    width="400"
+  />
+  <p>ここ</p>
 </template>

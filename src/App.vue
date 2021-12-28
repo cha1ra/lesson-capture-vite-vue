@@ -7,7 +7,7 @@ import ScreenCapture from './components/ScreenCapture.vue';
 import StramingScreen from './components/StreamingScreen.vue';
 
 
-const mediaStream = ref(new MediaStream());
+const mediaStream1 = ref(new MediaStream());
 
 
 // console.log(mediaStream);
@@ -28,12 +28,24 @@ const mediaStream = ref(new MediaStream());
 <template>
   <v-app>
     <v-main>
-      <v-container>
-        <StramingScreen />
-        <ScreenCapture
-          v-model:mediaStream="mediaStream"
-        />
-      </v-container>
+      <v-row>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <ScreenCapture
+            v-model:mediaStream="mediaStream1"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="9"
+        >
+          <StramingScreen
+            v-model:mediaStream1="mediaStream1"
+          />
+        </v-col>
+      </v-row>
     </v-main>
   </v-app>
 </template>
