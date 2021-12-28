@@ -8,6 +8,8 @@ import useMediaDevice from '../composables/useMediaDevice';
 
 const props = defineProps<{
   mediaStream: MediaStream
+  preview: boolean
+  name: string
 }>();
 const emit = defineEmits(['update:mediaStream']);
 
@@ -29,18 +31,38 @@ const onClickSelectButton = async () => {
 
 
 <template>
-  <v-btn
+  <v-card
     color="primary"
-    class="font-weight-bold"
+    class="font-weight-bold pa-2"
     elevation="0"
     @click="onClickSelectButton"
   >
-    画面1
-  </v-btn>
-  {{ mediaStream }}aa
-  <video
-    :srcObject.prop="videoSrc"
-    autoplay
-    width="400"
-  />
+    <div class="d-flex align-center">
+      <div
+        class="prev-icon mr-2"
+      >
+        <video
+          :srcObject.prop="videoSrc"
+          autoplay
+          width="100"
+        />
+      </div>
+      {{ name }}
+    </div>
+  </v-card>
 </template>
+
+<style lang="scss" scoped>
+.prev-icon {
+  height: 30px;
+  width: 30px;
+  background-color: #eee;
+  border-radius: 4px;
+  video {
+    height: 30px;
+    width: 30px;
+    object-fit: fill;
+    border-radius: 4px;
+  }
+}
+</style>

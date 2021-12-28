@@ -8,6 +8,8 @@ import {
 
 const props = defineProps<{
   mediaStream1: MediaStream
+  mediaStream2: MediaStream
+  mediaStream3: MediaStream
 }>();
 
 
@@ -107,7 +109,6 @@ onMounted(() => {
 <template>
   <!-- TODO: 後で :srcObject.prop="mediaStream" に置き換え -->
   <div>
-    <p>canvas</p>
     <canvas
       ref="canvas"
       :width="cvSize.width"
@@ -115,6 +116,19 @@ onMounted(() => {
     />
   </div>
   <div style="opacity: 0">
+    <!--    <video-->
+    <!--        ref="video1"-->
+    <!--        :srcObject.prop="mediaStream1"-->
+    <!--        autoplay-->
+    <!--        controls-->
+    <!--        width="200"-->
+    <!--    />-->
+    <!--    <video-->
+    <!--        ref="video2"-->
+    <!--        src="mock/sample2.mp4"-->
+    <!--        autoplay-->
+    <!--        width="200"-->
+    <!--    />-->
     <video
       ref="video1"
       :srcObject.prop="mediaStream1"
@@ -124,7 +138,7 @@ onMounted(() => {
     />
     <video
       ref="video2"
-      src="mock/sample2.mp4"
+      :srcObject.prop="mediaStream2"
       autoplay
       width="200"
     />
